@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FA拦截验证</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- 配置Tailwind自定义颜色 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36CFC9',
+            dark: '#1D2129',
+            light: '#F2F3F5'
+          },
+        },
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .avatar-pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(54, 207, 201, 0.4);
+        }
+
+        50% {
+          box-shadow: 0 0 0 10px rgba(54, 207, 201, 0);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.8s ease forwards;
+        opacity: 0;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .bg-grid {
+        background-size: 30px 30px;
+        background-image: linear-gradient(to right, rgba(22, 93, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(22, 93, 255, 0.05) 1px, transparent 1px);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-dark text-light min-h-screen">
+  <!-- 网格背景 -->
+  <div class="fixed inset-0 bg-grid opacity-50 z-0"></div>
+
+  <div class="container mx-auto px-4 py-8 relative z-10">
+    <!-- 头部区域 -->
+    <header class="text-center mb-12 fade-in" style="animation-delay: 0.1s;">
+      <h1 class="text-[clamp(1.8rem,5vw,2.5rem)] font-bold text-primary">作者定制版</h1>
+      <p class="text-gray-400 mt-3 max-w-md mx-auto">FA网络验证</p>
+    </header>
+
+    <!-- 头像区域 -->
+    <div class="flex flex-col items-center justify-center mb-12 fade-in" style="animation-delay: 0.3s;">
+      <div class="relative avatar-pulse">
+        <!-- 头像链接 -->
+        <img src="https://res.abeim.cn/api-qq.tx?qq=171979825" alt="用户头像" class="w-32 h-32 rounded-full object-cover border-4 border-secondary">
+        <div class="absolute bottom-0 right-0 w-10 h-10 bg-green-500 rounded-full border-4 border-dark flex items-center justify-center">
+          <span class="text-white text-xs">在线</span>
+        </div>
+      </div>
+      <!-- 新增：显示计时的元素 -->
+      <h2 class="mt-4 text-xl font-semibold" id="timerText">FA拦截中</h2> 
+    </div>
+
+    <!-- 核心功能区域 -->
+    <div class="max-w-md mx-auto space-y-6 fade-in" style="animation-delay: 0.5s;">
+      <!-- 流量卡店铺链接 -->
+      <a href="" target="_blank" class="block">
+        <div class="card-hover bg-dark/60 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-primary">
+          <h3 class="text-lg font-medium">FA拦截成功</h3>
+          <p class="text-gray-400 text-sm mt-1">刷新</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="text-center mt-16 text-gray-500 text-sm fade-in" style="animation-delay: 0.7s;">
+      <p>© 2025 业务管理系统 | 安全加密连接</p>
+    </footer>
+  </div>
+
+  <script>
+    // 页面加载时记录进入时间
+    const enterTime = new Date(); 
+    const timerText = document.getElementById('timerText');
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = Math.floor((now - enterTime) / 1000); // 计算秒数差
+      timerText.textContent = `FA拦截中 ${diff} 秒`;
+    }
+
+    // 每秒更新计时显示
+    setInterval(updateTimer, 1000); 
+    // 页面加载后立即执行一次，避免初始显示不及时
+    updateTimer(); 
+  </script>
+</body>
+
+</html>
